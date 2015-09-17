@@ -1,1 +1,59 @@
-<p>This is the grid view</p>
+<script>
+    // use data-spy="grid" for use AJAX for reload grid
+    require(['bluz.grid']);
+</script>
+
+<div class="clearfix" data-spy="grid" data-grid="<?=$grid->getUid()?>">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="col-lg-12">
+            <form class="navbar-form filter-form pull-right">
+                <div class="input-group">
+                    <?php echo $this->partial(
+                        'grid/filter-search-advanced.phtml',
+                        [
+                            'grid' => $grid,
+                            'filters' => [
+                                __('Author') =>  [$grid::FILTER_EQ   =>  'author'],
+                                __('Text') =>  [$grid::FILTER_LIKE   =>  'text'],
+                            ]
+                        ]
+                    ); ?>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><?=__("Search")?></button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <table class="table table-hover grid">
+        <thead>
+        <tr>
+            <th width="40px"><?=__('Id')?></th>
+            <th><a href="<?=$grid->order('author')?:'#'?>"><?=__('Author')?></a></th>
+            <th><a href="<?=$grid->order('text')?:'#'?>"><?=__('Todo')?></a></th>
+            <th><a href="<?=$grid->order('done')?:'#'?>"><?=__('Status')?></a></th>
+            <th width="96px"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        /**
+         * @var $row \Parse\ParseObject
+         */
+        foreach($grid->getData() as $row) : ?>
+            <tr>
+                <td><?=$row->getObjectId()?></td>
+                <td><?=$row->get('author')?></td>
+                <td><?=$row->get('text')?></td>
+                <td><?=$row->get('done') ? 'Closed' : 'Open'?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?=$this->partial('grid/empty-rows.phtml', ['grid'=>$grid]) ?>
+    <?=$this->partial('grid/pagination.phtml', ['grid'=>$grid]) ?>
+    <?=$this->partial('grid/total.phtml', ['grid'=>$grid]) ?>
+
+</div>

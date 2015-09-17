@@ -6,6 +6,7 @@
  */
 namespace Application;
 
+use Application\Parse\TodoGrid;
 use Bluz;
 
 return
@@ -13,9 +14,5 @@ return
  * @return \closure
  */
 function () use ($view) {
-    /**
-     * @var \Bluz\Application $this
-     * @var \Bluz\View\View $view
-     */
-    $request = $this->getRequest();
+    $view->grid = new TodoGrid();
 };
