@@ -1,0 +1,29 @@
+<?php $this->headScript("http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js");?>
+<?php $this->headScript("http://www.parsecdn.com/js/parse-1.0.24.min.js");?>
+
+<?php $this->headStyle($this->baseUrl('assets/parse/todo.css'));?>
+<?php $this->headScript($this->baseUrl('assets/parse/todo.js'));?>
+
+
+<div ng-app>
+    <h2>Todo</h2>
+    <div ng-controller="TodoCtrl">
+        <dl>
+            <dt>Your name:</dt>
+            <dd><input type="text" name="author" ng-model="author"/></dd>
+        </dl>
+
+        <span>{{remaining()}} of {{todos.length}} remaining</span>
+        <ul class="unstyled">
+            <li ng-repeat="todo in todos">
+                <input type="checkbox" ng-model="todo.done" ng-click="checkTodo(todo)">
+                <span class="done-{{todo.done}}">{{todo.text}} ({{todo.author}})</span>
+            </li>
+        </ul>
+        <form ng-submit="addTodo()">
+            <input type="text" ng-model="todoText"  size="30"
+                   placeholder="add new todo here">
+            <input class="btn-primary" type="submit" value="add">
+        </form>
+    </div>
+</div>
