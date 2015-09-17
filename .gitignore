@@ -1,0 +1,12 @@
+.idea
+.bluzman
+nbproject
+/application/configs/dev/*.php
+/data/
+!/data/locale
+/public/.htaccess
+!.stub
+composer.lock
+composer.phar
+/vendor/*
+phpunit.xml
