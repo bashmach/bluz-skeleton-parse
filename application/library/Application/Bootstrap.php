@@ -18,6 +18,7 @@ use Bluz\Proxy\Messages;
 use Bluz\Proxy\Response;
 use Bluz\Proxy\Request;
 use Bluz\Proxy\Session;
+use Parse\ParseClient;
 
 /**
  * Bootstrap
@@ -30,6 +31,21 @@ use Bluz\Proxy\Session;
  */
 class Bootstrap extends Application
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function init($environment = 'production')
+    {
+        parent::init($environment);
+
+        $options = [
+            'appId' => '...',
+            'restApiKey' => '...',
+            'masterKey' => '...'
+        ];
+        ParseClient::initialize($options['appId'], $options['restApiKey'], $options['masterKey']);
+    }
+
     /**
      * {@inheritdoc}
      *
